@@ -53,7 +53,7 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           tags: |
-            fiware/biz-ecosystem-logic-proxy:v8.1.0-dev
+            beknazar/baelp
           push: ${{ github.ref == 'refs/heads/master' }}
 
       - name: Image digest
