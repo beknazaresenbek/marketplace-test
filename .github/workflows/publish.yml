@@ -1,8 +1,13 @@
 name: Publish
 
 on:
-  release:
-    types: [released]
+  push:
+    branches:
+      - master
+
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build-docker:
@@ -29,7 +34,7 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           tags: |
-            beknazar/baelp:${{ steps.get_release.outputs.RELEASE_TAG }}
+            beknazar/baelp
           push: true
 
       - name: Image digest
