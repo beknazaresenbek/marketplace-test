@@ -292,9 +292,17 @@ if (!!process.env.BAE_LP_ALLOW_LOCAL_EORI) {
     config.allowLocalEORI = process.env.BAE_LP_ALLOW_LOCAL_EORI == 'true';
 }
 
+console.log('beka process.env.BAE_LP_EDIT_PARTY');
+console.log(process.env.BAE_LP_EDIT_PARTY);
+console.log(config.editParty);
+console.log('====');
+
 if (!!process.env.BAE_LP_EDIT_PARTY) {
     config.editParty = process.env.BAE_LP_EDIT_PARTY == 'true';
 }
+
+console.log(config.editParty);
+console.log('====2');
 
 config.oauth2.provider = process.env.BAE_LP_OAUTH2_PROVIDER || config.oauth2.provider;
 config.oauth2.server = process.env.BAE_LP_OAUTH2_SERVER || config.oauth2.server;
