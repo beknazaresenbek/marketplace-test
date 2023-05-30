@@ -295,7 +295,7 @@ if (!!process.env.BAE_LP_ALLOW_LOCAL_EORI) {
 console.log('beka process.env.BAE_LP_EDIT_PARTY');
 console.log(process.env.BAE_LP_EDIT_PARTY);
 console.log(config.editParty);
-console.log('====');
+console.log('====1º');
 
 if (!!process.env.BAE_LP_EDIT_PARTY) {
     config.editParty = process.env.BAE_LP_EDIT_PARTY == 'true';
