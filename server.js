@@ -430,7 +430,8 @@ var renderTemplate = function(req, res, viewName) {
         admin: config.oauth2.roles.admin,
         extLogin: extLogin,
         showLocal: showLocal,
-        editParty: editParty
+        editParty: true,
+        editParty2: editParty
     };
 
     if (extLogin) {
