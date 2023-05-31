@@ -16,6 +16,12 @@ html(ng-app="app")
       script(src="#{ contextPath }/#{ jsFilePath }")
 
     script.
+      console.log('ediParty');
+      console.log(#{ editParty });
+      console.log(#{ editParty2 });
+      console.log('#{ editParty2 }');
+      var a = '#{ editParty2 }';
+      var a2 = '#{ editParty }';
       angular.module('app')
         .constant('URLS', {
           IMAGE: '#{ contextPath }/resources/core/images',
@@ -81,12 +87,6 @@ html(ng-app="app")
           });
 
         });
-    script.
-      console.log('ediParty');
-    script.
-      console.log(#{ editParty });
-    script.
-      console.log(#{ editParty2 });
 
     if user
       script.
