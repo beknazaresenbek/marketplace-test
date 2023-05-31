@@ -30,7 +30,7 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           tags: |
-            beknazar/baelp10
+            beknazar/baelp11
           push: true
 
       - name: Image digest
