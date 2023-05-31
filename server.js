@@ -45,7 +45,7 @@ const extLogin = config.extLogin == true;
 const showLocal = config.showLocalLogin == true;
 const editParty = config.editParty == true;
 
-console.log("beka2-process.env.BAE_LP_EDIT_PARTY");
+console.log("beka3-process.env.BAE_LP_EDIT_PARTY");
 console.log(process.env.BAE_LP_EDIT_PARTY);
 console.log(config.editParty);
 console.log('====');
