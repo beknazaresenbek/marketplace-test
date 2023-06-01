@@ -1,8 +1,9 @@
 name: Publish
 
 on:
-  release:
-    types: [released]
+  push:
+    branches:
+      - master
 
 jobs:
   build-docker:
@@ -29,7 +30,7 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           tags: |
-            fiware/biz-ecosystem-logic-proxy:${{ steps.get_release.outputs.RELEASE_TAG }}
+            beknazar/baelp14
           push: true
 
       - name: Image digest
