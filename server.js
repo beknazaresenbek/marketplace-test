@@ -256,7 +256,7 @@ if (config.oauth2.provider === VC_LOGIN_TYPE) {
         const encodedState = getOAuth2State(utils.getCameFrom(req));
         const siopRequestURL = new url.URL(config.oauth2.server + config.oauth2.verifierQRCodePath);
         siopRequestURL.searchParams.append('state', encodedState);
-        siopRequestURL.searchParams.append('client_callback', config.oauth2.callbackURL);
+        siopRequestURL.searchParams.append('client_callback', (new url.URL(config.oauth2.callbackURL)).toString());
         siopRequestURL.searchParams.append('client_id', config.oauth2.clientID);
         res.render("siop.jade",  {
             title: 'Login Q',
