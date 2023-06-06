@@ -256,11 +256,11 @@ if (config.oauth2.provider === VC_LOGIN_TYPE) {
         const encodedState = getOAuth2State(utils.getCameFrom(req));
         const siopRequestURL = `${config.oauth2.server + config.oauth2.verifierQRCodePath}?` +
             `state=${encodedState}&` +
-            `client_callback=${config.oauth2.callbackURL}&` +
+            `client_callback=${encodeURIComponent(config.oauth2.callbackURL)}&` +
             `client_id=${config.oauth2.clientID}`;
         res.render("siop.jade",  {
             title: 'Login Q',
-            siopRequestURL: encodeURIComponent(siopRequestURL),
+            siopRequestURL: siopRequestURL,
             pollURL: VC_POLL_URL
         });
     });
