@@ -261,6 +261,10 @@ if (config.oauth2.provider === VC_LOGIN_TYPE) {
         res.render("siop.jade",  {
             title: 'Login Q',
             siopRequestURL: siopRequestURL,
+            verifierQRCodeURL: config.oauth2.server + config.oauth2.verifierQRCodePath,
+            statePair: `state=${encodedState}`,
+            callbackURLPair: `client_callback=${config.oauth2.callbackURL}`,
+            clientIDPair: `client_id=${config.oauth2.clientID}`,
             pollURL: VC_POLL_URL
         });
     });
