@@ -258,6 +258,8 @@ if (config.oauth2.provider === VC_LOGIN_TYPE) {
         siopRequestURL.searchParams.append('state', encodedState);
         siopRequestURL.searchParams.append('client_callback', (new url.URL(config.oauth2.callbackURL)).toString());
         siopRequestURL.searchParams.append('client_id', config.oauth2.clientID);
+        console.log('vc loginnnn');
+        console.log('encodedState: ' + encodedState);
         res.render("siop.jade",  {
             title: 'Login Q',
             siopRequestURL: siopRequestURL,
@@ -271,6 +273,9 @@ if (config.oauth2.provider === VC_LOGIN_TYPE) {
 
     app.get(VC_POLL_URL, (req, res, next) => {
         const encodedState = getOAuth2State(utils.getCameFrom(req));
+        console.log('pollll');
+        console.log('provider: ' + config.oauth2.provider);
+        console.log('encodedState: ' + encodedState);
         passport.authenticate(config.oauth2.provider, { poll: true, state: encodedState })(req, res, next);
     });
 }
