@@ -35,7 +35,7 @@ jobs:
 #          file: ./docker/Dockerfile
 #          tags: |
 #            beknazar/baelp19
-#          push: true
+#          push: true #
       - name: Build Image
         id: build-image
         uses: redhat-actions/buildah-build@v2
