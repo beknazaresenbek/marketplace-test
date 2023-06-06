@@ -254,12 +254,10 @@ const addIdpStrategy = async (idp) => {
 if (config.oauth2.provider === VC_LOGIN_TYPE) {
     app.get(`/login/${config.oauth2.provider}`, (req, res) => {
         const encodedState = getOAuth2State(utils.getCameFrom(req));
-        const siopRequestURL = `${config.oauth2.server + config.oauth2.verifierQRCodePath}?` +
-            (new url.URLSearchParams({
-                state: encodedState,
-                client_callback: config.oauth2.callbackURL,
-                client_id: config.oauth2.clientID
-            })).toString();
+        const siopRequestURL = new url.URL(config.oauth2.server + config.oauth2.verifierQRCodePath);
+        siopRequestURL.searchParams.append('state', encodedState);
+        siopRequestURL.searchParams.append('client_callback', config.oauth2.callbackURL);
+        siopRequestURL.searchParams.append('client_id', config.oauth2.clientID);
         res.render("siop.jade",  {
             title: 'Login Q',
             siopRequestURL: siopRequestURL,
