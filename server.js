@@ -260,7 +260,7 @@ if (config.oauth2.provider === VC_LOGIN_TYPE) {
             `client_id=${config.oauth2.clientID}`;
         res.render("siop.jade",  {
             title: 'Login Q',
-            siopRequestURL: siopRequestURL,
+            siopRequestURL: encodeURIComponent(siopRequestURL),
             pollURL: VC_POLL_URL
         });
     });
