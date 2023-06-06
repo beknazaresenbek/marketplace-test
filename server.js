@@ -228,36 +228,16 @@ const addIdpStrategy = async (idp) => {
     let extAuth = await authModule.auth(idp);
     passport.use(idp.idpId, extAuth.STRATEGY);
 
-    if (idp.idpId === VC_LOGIN_TYPE) {
-        app.get(`/login/${idp.idpId}`, (req, res) => {
-            const encodedState = getOAuth2State(utils.getCameFrom(req));
-            const siopRequestURL = `${config.oauth2.server + config.oauth2.verifierQRCodePath}?` +
-                `state=${encodedState}&` +
-                `client_callback=${config.oauth2.callbackURL}&` +
-                `client_id=${config.oauth2.clientID}`;
-            res.render("siop.jade",  {
-                title: 'Login Q',
-                siopRequestURL: siopRequestURL,
-                pollURL: VC_POLL_URL
-            });
-        });
+    // Handler for default logging
+    console.log(`/login/${idp.idpId}`);
+    app.all(`/login/${idp.idpId}`, function(req, res) {
+        console.log("--------------------------- Loggin");
+        console.log(idp);
+        console.log(extAuth);
+        const encodedState = getOAuth2State(utils.getCameFrom(req));
 
-        app.get(VC_POLL_URL, (req, res, next) => {
-            const encodedState = getOAuth2State(utils.getCameFrom(req));
-            passport.authenticate(idp.idpId, { poll: true, state: encodedState })(req, res, next);
-        });
-    } else {
-        // Handler for default logging
-        console.log(`/login/${idp.idpId}`);
-        app.all(`/login/${idp.idpId}`, function(req, res) {
-            console.log("--------------------------- Loggin");
-            console.log(idp);
-            console.log(extAuth);
-            const encodedState = getOAuth2State(utils.getCameFrom(req));
-
-            passport.authenticate(idp.idpId, { scope: extAuth.getScope(), state: encodedState })(req, res);
-        });
-    }
+        passport.authenticate(idp.idpId, { scope: extAuth.getScope(), state: encodedState })(req, res);
+    });
 
     // Handler for the callback
     console.log(`/auth/${idp.idpId}/callback`);
@@ -269,6 +249,26 @@ const addIdpStrategy = async (idp) => {
     });
 
     return extAuth;
+}
+
+if (config.oauth2.provider === VC_LOGIN_TYPE) {
+    app.get(`/login/${config.oauth2.provider}`, (req, res) => {
+        const encodedState = getOAuth2State(utils.getCameFrom(req));
+        const siopRequestURL = `${config.oauth2.server + config.oauth2.verifierQRCodePath}?` +
+            `state=${encodedState}&` +
+            `client_callback=${config.oauth2.callbackURL}&` +
+            `client_id=${config.oauth2.clientID}`;
+        res.render("siop.jade",  {
+            title: 'Login Q',
+            siopRequestURL: siopRequestURL,
+            pollURL: VC_POLL_URL
+        });
+    });
+
+    app.get(VC_POLL_URL, (req, res, next) => {
+        const encodedState = getOAuth2State(utils.getCameFrom(req));
+        passport.authenticate(config.oauth2.provider, { poll: true, state: encodedState })(req, res, next);
+    });
 }
 
 
