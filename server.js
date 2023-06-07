@@ -254,32 +254,21 @@ const addIdpStrategy = async (idp) => {
 if (config.oauth2.provider === VC_LOGIN_TYPE) {
     app.get(`/login/${config.oauth2.provider}`, (req, res) => {
         const encodedState = getOAuth2State(utils.getCameFrom(req));
-        const siopRequestURL = new url.URL(config.oauth2.server + config.oauth2.verifierQRCodePath);
-        siopRequestURL.searchParams.append('state', encodedState);
-        siopRequestURL.searchParams.append('client_callback', (new url.URL(config.oauth2.callbackURL)).toString());
-        siopRequestURL.searchParams.append('client_id', config.oauth2.clientID);
-        console.log('vc loginnnn');
-        console.log('encodedState: ' + encodedState);
         res.render("siop.jade",  {
             title: 'Login Q',
-            siopRequestURL: siopRequestURL,
             verifierQRCodeURL: config.oauth2.server + config.oauth2.verifierQRCodePath,
             statePair: `state=${encodedState}`,
             callbackURLPair: `client_callback=${config.oauth2.callbackURL}`,
-            clientIDPair: `client_id=${config.oauth2.clientID}`,
+            clientIDPair: `client_id=${config.siop.clientID}`,
             pollURL: VC_POLL_URL
         });
     });
 
     app.get(VC_POLL_URL, (req, res, next) => {
         const encodedState = getOAuth2State(utils.getCameFrom(req));
-        console.log('pollll');
-        console.log('provider: ' + config.oauth2.provider);
-        console.log('encodedState: ' + encodedState);
         passport.authenticate(config.oauth2.provider, { poll: true, state: encodedState })(req, res, next);
     });
 }
-
 
 // Load other stragies if external IDPs are enabled
 if (extLogin) {
