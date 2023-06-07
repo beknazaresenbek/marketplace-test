@@ -40,7 +40,7 @@ jobs:
         id: build-image
         uses: redhat-actions/buildah-build@v2
         with:
-          image: baelp9
+          image: baelp-demo
           tags: latest ${{ github.sha }}
           dockerfiles: |
             ./docker/Dockerfile
