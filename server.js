@@ -455,7 +455,7 @@ var renderTemplate = function(req, res, viewName) {
 };
 
 app.get(config.portalPrefix + '/', function(req, res) {
-    renderTemplate(req, res, 'app');
+    renderTemplate(req, res, 'app2');
 });
 
 app.get(config.portalPrefix + '/payment', ensureAuthenticated, function(req, res) {
