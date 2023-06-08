@@ -251,6 +251,10 @@ const addIdpStrategy = async (idp) => {
 if (config.siop.enabled) {
     let siopAuth = await authModule.auth(config.siop);
     passport.use(config.siop.provider, siopAuth.STRATEGY);
+    console.log('verifier data');
+    console.log(process.env.BAE_LP_SIOP_VERIFIER_HOST);
+    console.log(process.env.BAE_LP_SIOP_VERIFIER_TOKEN_PATH);
+    console.log(config.siop);
 
     app.get(`/login/${config.siop.provider}`, (req, res) => {
         const encodedState = getOAuth2State(utils.getCameFrom(req));
