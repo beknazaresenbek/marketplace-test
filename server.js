@@ -265,6 +265,7 @@ if (config.siop.enabled) {
     });
 
     app.get('/auth/' + config.siop.provider + '/callback', passport.authenticate(config.siop.provider), function(req, res) {
+        console.log('callback called');
         return res.redirect('/');
     });
 
