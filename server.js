@@ -43,6 +43,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 // External login enabled
 const extLogin = config.extLogin == true;
 const showLocal = config.showLocalLogin == true;
+const showVC = config.showVCLogin == true;
 const editParty = config.editParty == true;
 
 (async () => {
@@ -269,8 +270,7 @@ if (config.siop.enabled) {
     });
 
     app.get('/auth/' + config.siop.provider + '/callback', passport.authenticate(config.siop.provider), function(req, res) {
-        console.log('callback called');
-        return res.redirect('/');
+        res.send('ok');
     });
 
     app.get(config.siop.pollPath, (req, res, next) => {
@@ -437,6 +437,7 @@ var renderTemplate = function(req, res, viewName) {
         admin: config.oauth2.roles.admin,
         extLogin: extLogin,
         showLocal: showLocal,
+        showVC: showVC,
         editParty: editParty
     };
 
