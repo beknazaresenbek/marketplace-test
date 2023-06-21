@@ -126,7 +126,7 @@ const idpService = (function() {
             }
 
             // Add generated fields
-            idp.provider = idp.idpId;
+            idp.provider = 'i4trust';
             idp.clientID = config.localEORI;
             idp.tokenKey = config.ishareKey;
             idp.tokenCrt = config.ishareCrt;
